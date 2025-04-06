@@ -1,0 +1,48 @@
+package org.example;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class InscripcionTest {
+
+    @Test
+    public void intentosDeInscripcion() {
+        Materia am1 = new Materia();
+        Materia aga = new Materia();
+        Materia lyed = new Materia();
+        Materia f1 = new Materia();
+        Materia f2 = new Materia();
+        Materia pye = new Materia();
+        Inscripcion inscripcion1 = new Inscripcion();
+        Inscripcion inscripcion2 = new Inscripcion();
+
+        List<Materia> materiasAprobadasAlumnoSinF1 = Arrays.asList(am1, aga, lyed);
+        List<Materia> materiasAprobadasAlumnoConF1 = Arrays.asList(am1, aga, lyed, f1);
+        List<Materia> correlativasF2 = Arrays.asList(am1, f1);
+        List<Materia> correlativasPye = Arrays.asList(am1, aga);
+        List<Materia> materiasInscripcion = Arrays.asList(f2, pye);
+
+        f2.setCorrelativas(correlativasF2);
+        pye.setCorrelativas(correlativasPye);
+
+        Alumno alumnoSinF1 = new Alumno();
+        Alumno alumnoConF1 = new Alumno();
+
+        alumnoSinF1.setMateriasAprobadas(materiasAprobadasAlumnoSinF1);
+        alumnoConF1.setMateriasAprobadas(materiasAprobadasAlumnoConF1);
+
+        inscripcion1.setAlumno(alumnoSinF1);
+        inscripcion1.setMaterias(materiasInscripcion);
+
+        inscripcion2.setAlumno(alumnoConF1);
+        inscripcion2.setMaterias(materiasInscripcion);
+
+        Assertions.assertFalse(inscripcion1.aprobada());
+        Assertions.assertTrue(inscripcion2.aprobada());
+    }
+}
